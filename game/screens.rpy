@@ -147,6 +147,10 @@ screen barra_estadisticas():
 
 screen presentacion(texto):
 
+    on "show" action Play("sound", "audio/keyboard.mp3")
+    on "hide" action Stop("sound")
+
+
     frame:
         style "presentacion_frame"
 
@@ -154,6 +158,7 @@ screen presentacion(texto):
             style "presentacion_text"
             xalign 0.5
             yalign 0.5
+            slow_done Stop("sound")
 
     key "dismiss" action Return()
 
@@ -332,6 +337,8 @@ style choice_vbox:
 
 style choice_button is default:
     properties gui.button_properties("choice_button")
+    hover_sound "audio/option1.mp3"
+    activate_sound "audio/trabajoaceptado2.mp3"
 
 style choice_button_text is default:
     properties gui.text_properties("choice_button")
@@ -440,6 +447,8 @@ style mm_button is default:
 
 screen navigation2():
     
+    on "show" action Play("music", "audio/backgroundmusic.mp3", if_changed=True)
+
     vbox:
         style_prefix "navigation"
 
