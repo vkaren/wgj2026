@@ -1,0 +1,109 @@
+﻿# Coloca el código de tu juego en este archivo.
+
+# Declara los personajes usados en el juego como en el ejemplo:
+
+default nombre_jugador = ""
+default cansancio = 0 
+default estres =0 
+default culpa =0
+default dinero = 0
+define boss = Character("Jefe Nushi")
+define ms = Character("Mizuno-san")
+define ks = Character("Kawauso-senpai")
+
+# El juego comienza aquí.
+
+label start:
+
+    
+    $ renpy.call_screen("pedir_nombre")
+
+    $ nombre_jugador = nombre_jugador.strip()
+
+    if nombre_jugador == "":
+        $ nombre_jugador = "P"
+   
+    jump intro
+
+label intro:
+    #with  Fade(2.0, 0.5, 2.0)
+    call screen presentacion ("Desde pequeña he tenido un sueño…. \n Logré conseguir trabajo en una reconocida empresa, la cual parece ser una oportunidad prometedora para crecer…\n Pronto será mi momento de brillar…necesito ahorrar 1.000.000 de dólares para lograrlo!\nPERO…. ¿A que costo?...")
+    jump capitulo1
+
+label capitulo1:
+    show screen barra_estadisticas
+    scene fondo
+    #show eileen happy with easeinleft
+    boss "¡Hola! Bienvenida, soy el jefe Nushi. Antes que nada, necesito que revises este reporte sumamente importante."
+    nombre_jugador "{i}Debo decirle que sí para mantener mi primer empleo y caerle bien a todos.{/i}"
+    menu:
+        "¡Sí, claro!":
+            pass
+        "¡Puedo hacerlo!":
+            pass
+  
+    call screen presentacion("2 horas más tarde...")
+    pass
+    boss "¿Ya está listo el reporte?"
+    nombre_jugador "¡Sí, listo!"
+    $ cansancio +=10
+    $ dinero += 500
+    boss "Muchas gracias."
+    call screen presentacion("Cansancio: [cansancio], estrés: [estres], culpa: [culpa], $[dinero] en la cuenta bancaria")
+    jump capitulo2
+    
+label capitulo2:
+    call screen presentacion("Capítulo 2: más favores\n [nombre_jugador]: Ingreso al trabajo, 08 am.")
+    ms "Oye, [nombre_jugador], necesito que hagas esta carga de datos. Te doy 100 dólares para que me ayudes pronto."
+
+    menu:
+        "¡Sí, entendido!":
+            $ cansancio += 20
+            $ estres += 20
+            $ culpa -=10
+            $ dinero +=100
+            ms "¡Gracias, [nombre_jugador]! Ya me voy a casa."
+            pass
+        "Lo cargo después del almuerzo":
+            $ cansancio += 10
+            $ estres += 10
+            $ culpa +=10
+            $ dinero +=100
+            ms "[nombre_jugador]... ¿y la carga? La necesitaba hace una hora."
+            pass
+    boss "Hola, [nombre_jugador], ayúdame con esta presentación."
+    menu:
+        "Por supuesto.":
+            $ cansancio += 20
+            $ estres += 10
+            $ dinero +=500
+            call screen presentacion("2 horas más tarde...")
+            boss "Buen trabajo, [nombre_jugador]. Mañana te espero temprano."
+            
+    call screen presentacion("6:00 pm. En el escritorio del fondo, una silueta pequeña con corbata apaga su computadora y se va tranquilamente.")
+    nombre_jugador "{i}¿Alguien se va a las 6? Yo todavía tengo trabajo...{/i}"
+    call screen presentacion("Cansancio: [cansancio], estrés: [estres], culpa: [culpa], $ [dinero] en la cuenta bancaria")
+    jump capitulo3
+
+label capitulo3:
+    call screen presentacion("Capítulo 3:  La nutria del escritorio del fondo\n {i}2 semanas después{/i}")
+    nombre_jugador "{i}Son las 8 pm y la oficina sigue llena. Nadie se va antes que el jefe.{/i}"
+    nombre_jugador "{i}Llevo dos semanas saliendo a las 10 pm... pero mi cuenta crece. Debo aguantar.{/i}"
+    ks "Tú eres la nueva, ¿verdad? Llevo 15 años aquí. Soy la única que sale a las 6 pm todos los días."
+    nombre_jugador "¿Cómo lo hace? ¿No la regañan?"
+    ks "Nunca digo “no”... pero tampoco digo “sí” a todo. Escucha bien, pequeña."
+    #ms llega corriendo
+    ms "[nombre_jugador], ¿me ayudas con mis correos pendientes? Te doy 50 dólares."
+    menu:
+        "¡Claro, ahora mismo!":
+            $ cansancio += 20
+            $ estres += 10
+            $ dinero +=50
+            $ culpa -=10
+            pass
+        "¡Lo pongo en mi lista para revisarlo.":        
+            $ estres -= 10
+            $ culpa +=10
+            ks "¿Ves? No le dijiste que no. Solo no le dijiste que sí ahora."
+    call screen presentacion("Cansancio: [cansancio], estrés: [estres], culpa: [culpa], $ [dinero] en la cuenta bancaria")        
+    return
