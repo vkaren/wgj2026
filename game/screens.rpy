@@ -436,13 +436,19 @@ screen navigation():
 
 style mm_button is default:
     
-    #background Frame("gui/button/001.png")     
-    #hover_background Frame("gui/button/002.png")
+    background Frame("gui/button/001.png")     
+    hover_background Frame("gui/button/002.png")
     hover_sound "hover_reso.mp3"  
-    padding (50, 15, 15, 8)
-    xsize 350
-    ysize 80
+    padding (120, 40, 15, 8)
+    xsize 360
+    ysize 108
     xalign 0.5
+    #text_align 0.5
+    
+style mm_button_text is default:
+    size 40
+    color "#000000"
+    hover_color "#000000"
     text_align 0.5
 
 screen navigation2():
